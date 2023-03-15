@@ -30,7 +30,7 @@ public class EmployeeServiceImpl  implements  IEmployeeService{
             rating=employee.getRating();
         }
 
-//        repository.updateEmployeeDetails(Id,address,salaryGarde,rating,firstName);
+        repository.updateEmployeeDetails(Id,address,salaryGarde,rating,firstName);
         return repository.findById(Id).get();
     }
 }
