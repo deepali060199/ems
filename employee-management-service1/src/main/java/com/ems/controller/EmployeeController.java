@@ -48,8 +48,8 @@ public class EmployeeController {
         EmployeeRating employeeRating=template.getForObject("http://employee-rating-service/v1/ratings/"+rating,EmployeeRating.class);
 
         int increment=employeeRating.getIncrement();
-        int salaryGrade=employeeDetail.getSalary();
-        employeeDetails.setSalary(salaryGrade+increment);
+        int salary=employeeDetail.getSalary();
+        employeeDetails.setSalary(salary+increment);
         return  service.updateEmployee(employeeDetails,Id);
 
 
