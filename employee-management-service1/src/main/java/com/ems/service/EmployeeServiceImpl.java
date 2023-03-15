@@ -16,21 +16,21 @@ public class EmployeeServiceImpl  implements  IEmployeeService{
         // old object
         EmployeeDetails employee=repository.findById(Id).get();
         String address=employeeDetails.getAddress();
-        int salaryGarde=employeeDetails.getSalaryGrade();
+        int salaryGarde=employeeDetails.getSalary();
         double rating=employeeDetails.getRating();
-        String name=employeeDetails.getName();
+        String firstName=employeeDetails.getFirstName();
         if(address==null || address.equals("")){
             address=employee.getAddress();
         }
 
         if(salaryGarde==0){
-            salaryGarde=employee.getSalaryGrade();
+            salaryGarde=employee.getSalary();
         }
         if(rating==0.0){
             rating=employee.getRating();
         }
 
-        repository.updateEmployeeDetails(Id,address,salaryGarde,rating,name);
+//        repository.updateEmployeeDetails(Id,address,salaryGarde,rating,firstName);
         return repository.findById(Id).get();
     }
 }

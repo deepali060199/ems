@@ -18,8 +18,15 @@ public class EmployeeDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
-    private String name;
-    private int salaryGrade;
+    private String firstName;
+    private String lastName;
+    private int salary;
     private String address;
     private double rating;
+    private String city;
+    private String email;
+    private String state;
+    private int age;
+    private String gender;
+
 }
