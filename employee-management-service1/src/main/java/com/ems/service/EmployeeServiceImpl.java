@@ -18,9 +18,10 @@ public class EmployeeServiceImpl  implements  IEmployeeService{
         String address=employeeDetails.getAddress();
         int salaryGarde=employeeDetails.getSalary();
         double rating=employeeDetails.getRating();
-         String state=employeeDetails.getState();
-         String city=employeeDetails.getCity();
-         String email= employee.getEmail();
+        String city= employeeDetails.getCity();
+        String email= employeeDetails.getEmail();
+        String lastName=employeeDetails.getLastName();
+        String firstName=employeeDetails.getFirstName();
         if(address==null || address.equals("")){
             address=employee.getAddress();
         }
@@ -32,7 +33,11 @@ public class EmployeeServiceImpl  implements  IEmployeeService{
             rating=employee.getRating();
         }
 
-        repository.updateEmployeeDetails(Id,address,salaryGarde,rating,email,state,city);
+<<<<<<<<< Temporary merge branch 1
+        repository.updateEmployeeDetails(Id,address,salaryGarde,rating,firstName);
+=========
+        repository.updateEmployeeDetails(Id,address,salaryGarde,rating,firstName,lastName,email,city);
+>>>>>>>>> Temporary merge branch 2
         return repository.findById(Id).get();
     }
 }
