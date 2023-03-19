@@ -21,6 +21,7 @@ public class EmployeeDetails {
 
     private String firstName;
     private String lastName;
+    private String password;
     private int salary;
     private String address;
     private double rating;

@@ -6,6 +6,7 @@ import com.ems.model.EmployeeRating;
 import com.ems.repository.IEmployeeRepository;
 import com.ems.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,6 +34,8 @@ public class EmployeeController {
 
 
     @PostMapping("/employees")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
     public EmployeeDetails saveEmployeeDetails(@RequestBody EmployeeDetails employeeDetails){
 
         repository.save(employeeDetails);
@@ -56,6 +59,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<EmployeeDetails> getAllEmployee(){
       return repository.findAll();
 
@@ -63,6 +67,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
 
     public  EmployeeDetails getById(@PathVariable("id") long id){
       return repository.findById(id).get();
@@ -72,12 +77,25 @@ public class EmployeeController {
 
 
      @DeleteMapping("/employees/{id}")
-    public EmployeeDetails deleteEmployee(@PathVariable("id") long id){
+     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+     public EmployeeDetails deleteEmployee(@PathVariable("id") long id){
         EmployeeDetails employeeDetails=repository.findById(id).get();
         repository.deleteById(id);
 
         return  employeeDetails;
      }
+
+
+       @GetMapping("/employees/firstname/{firstname}")
+       @PreAuthorize("hasAuthority('ROLE_USER')")
+
+     public List<EmployeeDetails> getByCity(@PathVariable("firstname") String firstName){
+
+           return repository.findEmployeeDetailsByFirstName(firstName);
+
+     }
+
+
 
 
 
