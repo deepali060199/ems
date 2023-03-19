@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 
 public interface IEmployeeRepository extends JpaRepository<EmployeeDetails,Long> {
 
@@ -15,5 +17,11 @@ public interface IEmployeeRepository extends JpaRepository<EmployeeDetails,Long>
 
     @Query("update EmployeeDetails e set e.address=:address , e.salary=:salary,e.rating=:rating,e.state=:state,e.email=:email,e.city=:city where e.id=:Id")
     void updateEmployeeDetails(@Param("Id") long Id,@Param("address") String address, @Param("salary") int salary,@Param("rating") double rating ,@Param("city") String city,@Param("email") String email,@Param("state") String state);
+
+
+
+
+List<EmployeeDetails> findEmployeeDetailsByFirstName(String firstName);
+
 
 }

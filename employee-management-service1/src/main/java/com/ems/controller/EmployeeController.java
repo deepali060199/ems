@@ -72,11 +72,20 @@ public class EmployeeController {
 
 
      @DeleteMapping("/employees/{id}")
+
     public EmployeeDetails deleteEmployee(@PathVariable("id") long id){
         EmployeeDetails employeeDetails=repository.findById(id).get();
         repository.deleteById(id);
 
         return  employeeDetails;
+     }
+
+
+       @GetMapping("/employees/firstname/{firstname}")
+     public List<EmployeeDetails> getByCity(@PathVariable("firstname") String firstName){
+
+           return repository.findEmployeeDetailsByFirstName(firstName);
+
      }
 
 
