@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface IEmployeeRepository extends JpaRepository<EmployeeDetails,Long> {
@@ -21,7 +22,8 @@ public interface IEmployeeRepository extends JpaRepository<EmployeeDetails,Long>
 
 
 
-List<EmployeeDetails> findEmployeeDetailsByFirstName(String firstName);
+    Optional<EmployeeDetails> findByFirstName(String firstName);
 
 
+//    Optional<EmployeeDetails> findEmployeeDetailsByEmail(String email);
 }

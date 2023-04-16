@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -33,17 +34,17 @@ public class EmployeeController {
 
 
 
-    @PostMapping("/employees")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PostMapping("/create/employees")
+
 
     public EmployeeDetails saveEmployeeDetails(@RequestBody EmployeeDetails employeeDetails){
 
-        repository.save(employeeDetails);
-        return  employeeDetails;
+         return service.saveEmployeeDetails(employeeDetails);
 
     }
 
     @PutMapping("/employees/{empId}")
+    @PreAuthorize("hasAuthority('ROLE_USER','ROLE_ADMIN')")
     public  EmployeeDetails updateEmployee(@PathVariable("empId")  long Id,@RequestBody EmployeeDetails employeeDetails){
         EmployeeDetails employeeDetail=repository.findById(Id).get();
         double rating= employeeDetail.getRating();
@@ -58,7 +59,7 @@ public class EmployeeController {
 
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/employees/all")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<EmployeeDetails> getAllEmployee(){
       return repository.findAll();
@@ -76,7 +77,7 @@ public class EmployeeController {
     }
 
 
-     @DeleteMapping("/employees/{id}")
+     @DeleteMapping("/employees/delete/{id}")
      @PreAuthorize("hasAuthority('ROLE_ADMIN')")
      public EmployeeDetails deleteEmployee(@PathVariable("id") long id){
         EmployeeDetails employeeDetails=repository.findById(id).get();
@@ -86,12 +87,13 @@ public class EmployeeController {
      }
 
 
-       @GetMapping("/employees/firstname/{firstname}")
-       @PreAuthorize("hasAuthority('ROLE_USER')")
+     @GetMapping("/employees/firstname/{firstname}")
+     @PreAuthorize("hasAuthority('ROLE_USER')")
 
-     public List<EmployeeDetails> getByCity(@PathVariable("firstname") String firstName){
+     public Optional<EmployeeDetails> getByFirstName(@PathVariable("firstname") String firstName){
 
-           return repository.findEmployeeDetailsByFirstName(firstName);
+    return repository.findByFirstName(firstName);
+
 
      }
 

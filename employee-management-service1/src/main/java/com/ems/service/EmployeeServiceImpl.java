@@ -3,6 +3,7 @@ package com.ems.service;
 import com.ems.model.EmployeeDetails;
 import com.ems.repository.IEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -11,6 +12,9 @@ public class EmployeeServiceImpl  implements  IEmployeeService{
 
     @Autowired
     IEmployeeRepository repository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @Override
     public EmployeeDetails updateEmployee(EmployeeDetails employeeDetails, long Id) {
         // old object
@@ -37,5 +41,12 @@ public class EmployeeServiceImpl  implements  IEmployeeService{
         repository.updateEmployeeDetails(Id,address,salaryGarde,rating,city,email,state);
 
         return repository.findById(Id).get();
+    }
+
+    @Override
+    public EmployeeDetails saveEmployeeDetails(EmployeeDetails employeeDetails) {
+        employeeDetails.setPassword(passwordEncoder.encode(employeeDetails.getPassword()));
+        repository.save(employeeDetails);
+        return  employeeDetails;
     }
 }

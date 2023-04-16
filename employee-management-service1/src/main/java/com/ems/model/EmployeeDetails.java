@@ -8,7 +8,6 @@ import lombok.Data;
 
 
 
-
 @Entity
 
 @Data
@@ -30,5 +29,6 @@ public class EmployeeDetails {
     private String state;
     private int age;
     private String gender;
+    private String roles;
 
 }
